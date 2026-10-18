@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Med Oral — Dossiê de Apresentação Oficial | Ubaitaba (BA)</title>
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* RESET & PRINT CONFIGURATION */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    @media print {
+      body {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .page {
+        page-break-after: always;
+        break-after: page;
+        margin: 0 !important;
+        box-shadow: none !important;
+      }
+    }
+
+    :root {
+      --bg-dark: #0B0F0E;
+      --surface-dark: #121816;
+      --text-dark: #F6F5F0;
+      --text-muted: #9AA19D;
+      --border-dark: rgba(255, 255, 255, 0.12);
+      --bg-light: #F6F5F0;
+      --text-light: #0E1412;
+      --text-light-muted: #4A5450;
+      --border-light: rgba(11, 15, 14, 0.12);
+      --accent-amber: #D4A373;
+      --accent-petrol: #0E7467;
+      --accent-green: #0B6E4F;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      background-color: #222;
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    /* PÁGINA A4 PADRÃO (210mm x 297mm) */
+    .page {
+      width: 210mm;
+      height: 297mm;
+      background-color: var(--bg-dark);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 20mm;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .page--light {
+      background-color: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    /* HEADER & FOOTER FIXOS POR PÁGINA */
+    .doc-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-dark);
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+    }
+
+    .page--light .doc-header {
+      border-bottom-color: var(--border-light);
+    }
+
+    .doc-brand {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .doc-meta {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .page--light .doc-meta {
+      color: var(--text-light-muted);
+    }
+
+    .doc-footer {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-dark);
+      padding-top: 12px;
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .page--light .doc-footer {
+      border-top-color: var(--border-light);
+      color: var(--text-light-muted);
+    }
+
+    /* PÁGINA 1: CAPA EDITORIAL */
+    .cover-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+    }
+
+    .cover-top {
+      border-bottom: 1px solid var(--border-dark);
+      padding-bottom: 20px;
+    }
+
+    .cover-tagline {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .cover-title {
+      font-size: 42px;
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 14px;
+    }
+
+    .cover-subtitle {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text-muted);
+      max-width: 440px;
+    }
+
+    .cover-photo-wrapper {
+      margin: 20px 0;
+      border: 1px solid var(--border-dark);
+      padding: 6px;
+      background-color: var(--surface-dark);
+      border-radius: 4px;
+    }
+
+    .cover-photo {
+      width: 100%;
+      height: 120mm;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(120%);
+      display: block;
+    }
+
+    .cover-bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      border-top: 1px solid var(--border-dark);
+      padding-top: 16px;
+    }
+
+    .cover-spec-title {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .cover-spec-val {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    /* PÁGINA 2: O MANIFESTO & OFÍCIO CLÍNICO */
+    .section-title {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .lead-text {
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      color: var(--text-light);
+    }
+
+    .quote-box {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 18px;
+      line-height: 1.45;
+      border-left: 3px solid var(--text-light);
+      padding: 14px 20px;
+      margin: 24px 0;
+      background-color: rgba(12, 14, 13, 0.04);
+    }
+
+    .manifesto-cols {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      margin-top: 20px;
+      align-items: center;
+    }
+
+    .manifesto-body {
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--text-light-muted);
+    }
+
+    .photo-frame-small {
+      border: 1px solid var(--border-light);
+      padding: 5px;
+      background-color: #FFFFFF;
+      border-radius: 4px;
+    }
+
+    .photo-frame-small img {
+      width: 100%;
+      height: 65mm;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(115%);
+      display: block;
+    }
+
+    .photo-caption {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-light-muted);
+      margin-top: 6px;
+      text-align: center;
+    }
+
+    /* PÁGINA 3: CATÁLOGO TÉCNICO DE PROCEDIMENTOS */
+    .catalog-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    .catalog-row {
+      border-bottom: 1px solid var(--border-dark);
+      padding: 16px 0;
+      display: grid;
+      grid-template-columns: 45px 1.4fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .catalog-idx {
+      font-family: monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    .catalog-item-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: var(--text-dark);
+    }
+
+    .catalog-item-desc {
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    .catalog-specs-block {
+      background-color: var(--surface-dark);
+      border: 1px solid var(--border-dark);
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 10px;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    .catalog-specs-block strong {
+      color: var(--text-dark);
+    }
+
+    /* PÁGINA 4: RIGOR, CONSULTA & PERGUNTAS FREQUENTES */
+    .steps-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin: 18px 0 24px 0;
+    }
+
+    .step-box {
+      border: 1px solid var(--border-light);
+      padding: 14px;
+      border-radius: 4px;
+      background-color: #FFFFFF;
+    }
+
+    .step-num {
+      font-family: monospace;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--text-light-muted);
+      margin-bottom: 6px;
+    }
+
+    .step-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-light);
+      margin-bottom: 6px;
+    }
+
+    .step-desc {
+      font-size: 10.5px;
+      line-height: 1.5;
+      color: var(--text-light-muted);
+    }
+
+    .faq-compact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .faq-compact-item {
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 10px;
+    }
+
+    .faq-compact-q {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-light);
+      margin-bottom: 3px;
+    }
+
+    .faq-compact-a {
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--text-light-muted);
+    }
+
+    /* PÁGINA 5: LOCALIZAÇÃO & CONTATO OFICIAL */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .contact-card {
+      border: 1px solid var(--border-dark);
+      background-color: var(--surface-dark);
+      padding: 24px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .contact-card-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .contact-item-row {
+      margin-bottom: 14px;
+    }
+
+    .contact-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+
+    .contact-val {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .badge-action {
+      background-color: var(--accent-green);
+      color: #FFFFFF;
+      padding: 10px 16px;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: block;
+      margin-top: 18px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PÁGINA 1: CAPA EDITORIAL -->
+  <div class="page" id="page-1">
+    <div class="cover-container">
+      <div class="cover-top">
+        <div class="cover-tagline">Med Oral · Odontologia Especializada</div>
+        <h1 class="cover-title">O detalhe que transforma o seu sorriso.</h1>
+        <p class="cover-subtitle">
+          Dossiê Clínico & Apresentação de Procedimentos. Odontologia estética e reabilitação executadas com rigor cirúrgico e acabamento artesanal em Ubaitaba, Bahia.
+        </p>
+      </div>
+
+      <div class="cover-photo-wrapper">
+        <img src="hero_macro_hires.png" alt="Microescultura dental e polimento clínico em macrofotografia de alto contraste" class="cover-photo">
+      </div>
+
+      <div class="cover-bottom">
+        <div>
+          <div class="cover-spec-title">Localização</div>
+          <div class="cover-spec-val">Ubaitaba — BA</div>
+        </div>
+        <div>
+          <div class="cover-spec-title">Endereço</div>
+          <div class="cover-spec-val">Av. Presidente Vargas</div>
+        </div>
+        <div>
+          <div class="cover-spec-title">Atendimento</div>
+          <div class="cover-spec-val">Com Hora Marcada</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PÁGINA 2: O MANIFESTO CLÍNICO & OFÍCIO -->
+  <div class="page page--light" id="page-2">
+    <div class="doc-header">
+      <span class="doc-brand">MED ORAL</span>
+      <span class="doc-meta">02 / Filosofia & Posicionamento</span>
+    </div>
+
+    <div>
+      <h2 class="section-title">Autoestima não se improvisa.</h2>
+      <p class="lead-text">
+        Acreditamos que um sorriso bonito nunca deve parecer artificial. Ele precisa respeitar a anatomia facial, a proporção labial, a espessura gengival e a translucidez natural do esmalte de cada paciente.
+      </p>
+
+      <div class="quote-box">
+        “A verdadeira odontologia estética é silenciosa: quem olha para você percebe a sua beleza e a sua segurança renovada — nunca o artifício de um procedimento.”
+      </div>
+
+      <div class="manifesto-cols">
+        <div class="manifesto-body">
+          <p style="margin-bottom: 12px;">
+            Em Ubaitaba, a <strong>Med Oral Odontologia Especializada</strong> nasceu para oferecer um padrão de atendimento que se recusa a seguir a lógica de procedimentos rápidos ou resultados padronizados em série.
+          </p>
+          <p style="margin-bottom: 12px;">
+            Cada caso é conduzido com planejamento diagnóstico individualizado, materiais odontológicos de alta performance e um olhar minucioso para a preservação biológica da estrutura dentária.
+          </p>
+          <p>
+            Trabalhamos com tempo reservado para que você seja escutado com calma, compreenda cada etapa do seu tratamento e sinta segurança do início ao resultado final.
+          </p>
+        </div>
+
+        <div>
+          <div class="photo-frame-small">
+            <img src="procedure_patient_hires.jpg" alt="Paciente confortável e acolhida durante procedimento clínico na Med Oral">
+          </div>
+          <div class="photo-caption">Conforto Clínico · Cuidado Minucioso</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-footer">
+      <span>Med Oral Odontologia Especializada · Ubaitaba - BA</span>
+      <span>02</span>
+    </div>
+  </div>
+
+  <!-- PÁGINA 3: CATÁLOGO TÉCNICO DE PROCEDIMENTOS -->
+  <div class="page" id="page-3">
+    <div class="doc-header">
+      <span class="doc-brand">MED ORAL</span>
+      <span class="doc-meta">03 / Catálogo de Atuação</span>
+    </div>
+
+    <div>
+      <h2 class="section-title" style="color: var(--text-dark);">Procedimentos Especializados</h2>
+      <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 12px;">
+        Soluções integradas de odontologia estética e clínica geral, executadas com foco na harmonia e preservação biológica.
+      </p>
+
+      <div class="catalog-table">
+        
+        <!-- 01: Clareamento -->
+        <div class="catalog-row">
+          <div class="catalog-idx">01</div>
+          <div>
+            <div class="catalog-item-title">Clareamento com Controle Biológico</div>
+            <div class="catalog-item-desc">
+              Eliminação de pigmentos intrínsecos acumulados por café, tempo e hábitos, sem agredir o esmalte. Aplicação de protocolos modernos de dessensibilização para máximo conforto durante e após as sessões.
+            </div>
+          </div>
+          <div class="catalog-specs-block">
+            <strong>Modalidade:</strong> Consultório + Caseiro<br>
+            <strong>Preservação:</strong> 100% da matriz de esmalte<br>
+            <strong>Indicação:</strong> Dentes pigmentados/opacos
+          </div>
+        </div>
+
+        <!-- 02: Facetas e Resinas -->
+        <div class="catalog-row">
+          <div class="catalog-idx">02</div>
+          <div>
+            <div class="catalog-item-title">Facetas & Microescultura em Resina</div>
+            <div class="catalog-item-desc">
+              Fechamento de diastemas, correção de bordas incisais desiguais e harmonização de cor e proporção. Estratificação de resinas nanohíbridas que mimetizam perfeitamente a refração da luz do dente real.
+            </div>
+          </div>
+          <div class="catalog-specs-block">
+            <strong>Abordagem:</strong> Minimamente invasiva<br>
+            <strong>Material:</strong> Resinas nanohíbridas de alta carga<br>
+            <strong>Indicação:</strong> Formato, tamanho e alinhamento
+          </div>
+        </div>
+
+        <!-- 03: Prevenção -->
+        <div class="catalog-row">
+          <div class="catalog-idx">03</div>
+          <div>
+            <div class="catalog-item-title">Odontologia Preventiva & Periodontia</div>
+            <div class="catalog-item-desc">
+              A base da estética duradoura. Profilaxia ultrassônica minuciosa, raspagem subgengival, remoção de biofilme e restaurações estéticas adesivas que selam os dentes na cor idêntica ao esmalte.
+            </div>
+          </div>
+          <div class="catalog-specs-block">
+            <strong>Tecnologia:</strong> Ultrassom periodontal e jato<br>
+            <strong>Objetivo:</strong> Saúde gengival e prevenção<br>
+            <strong>Indicação:</strong> Manutenção e saúde contínua
+          </div>
+        </div>
+
+        <!-- 04: Reabilitação -->
+        <div class="catalog-row" style="border-bottom: none;">
+          <div class="catalog-idx">04</div>
+          <div>
+            <div class="catalog-item-title">Reabilitação Oral & Alinhamento</div>
+            <div class="catalog-item-desc">
+              Recuperação de dentes ausentes, alinhamento funcional e reabilitação de estabilidade mastigatória. Devolve o suporte labial correto e a proporção estética do terço inferior da face.
+            </div>
+          </div>
+          <div class="catalog-specs-block">
+            <strong>Soluções:</strong> Próteses e alinhamento<br>
+            <strong>Benefício:</strong> Firmeza mastigatória plena<br>
+            <strong>Indicação:</strong> Perda dental ou colapso oclusal
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="doc-footer">
+      <span>Med Oral Odontologia Especializada · Ubaitaba - BA</span>
+      <span>03</span>
+    </div>
+  </div>
+
+  <!-- PÁGINA 4: AVALIAÇÃO & RIGOR CLÍNICO -->
+  <div class="page page--light" id="page-4">
+    <div class="doc-header">
+      <span class="doc-brand">MED ORAL</span>
+      <span class="doc-meta">04 / Rigor & Jornada do Paciente</span>
+    </div>
+
+    <div>
+      <h2 class="section-title">Como Funciona a Consulta de Avaliação</h2>
+      <p class="lead-text" style="font-size: 13px; margin-bottom: 12px;">
+        Acreditamos na transparência absoluta. Antes de iniciar qualquer procedimento, construímos um diagnóstico claro e personalizado:
+      </p>
+
+      <div class="steps-container">
+        <div class="step-box">
+          <div class="step-num">ETAPA 01</div>
+          <div class="step-name">Escuta & Diagnóstico</div>
+          <p class="step-desc">
+            Análise aprofundada da sua saúde bucal, dentes e gengivas. Ouvimos com atenção o que você gostaria de transformar no seu sorriso.
+          </p>
+        </div>
+
+        <div class="step-box">
+          <div class="step-num">ETAPA 02</div>
+          <div class="step-name">Planejamento Visual</div>
+          <p class="step-desc">
+            Apresentação das alternativas clínicas, simulação de harmonia e cronograma transparente de sessões sem surpresas.
+          </p>
+        </div>
+
+        <div class="step-box">
+          <div class="step-num">ETAPA 03</div>
+          <div class="step-name">Execução Confortável</div>
+          <p class="step-desc">
+            Procedimento com hora reservada para você, controle anti-sensibilidade e acompanhamento contínuo da evolução.
+          </p>
+        </div>
+      </div>
+
+      <h3 style="font-size: 16px; font-weight: 800; margin: 20px 0 10px 0;">Perguntas Frequentes</h3>
+      
+      <div class="faq-compact-list">
+        <div class="faq-compact-item">
+          <div class="faq-compact-q">O clareamento dental desgasta ou enfraquece o dente?</div>
+          <div class="faq-compact-a">
+            Não. O clareamento sob supervisão profissional atua apenas nos pigmentos internos da dentina por meio de oxigênio liberado pelo gel clareador, mantendo intacta toda a estrutura e dureza do esmalte.
+          </div>
+        </div>
+
+        <div class="faq-compact-item">
+          <div class="faq-compact-q">Vou sentir sensibilidade durante o procedimento?</div>
+          <div class="faq-compact-a">
+            Utilizamos géis de última geração associados a agentes dessensibilizantes pré e pós-aplicação. A intensidade do protocolo é ajustada para que a experiência seja totalmente tranquila e confortável.
+          </div>
+        </div>
+
+        <div class="faq-compact-item">
+          <div class="faq-compact-q">Quanto tempo duram os resultados de facetas e clareamento?</div>
+          <div class="faq-compact-a">
+            Com as manutenções periódicas e hábitos regulares de higiene, os resultados duram anos com brilho e naturalidade. Você recebe todas as orientações de cuidado na finalização do caso.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-footer">
+      <span>Med Oral Odontologia Especializada · Ubaitaba - BA</span>
+      <span>04</span>
+    </div>
+  </div>
+
+  <!-- PÁGINA 5: LOCALIZAÇÃO, ATENDIMENTO & CONTATO -->
+  <div class="page" id="page-5">
+    <div class="doc-header">
+      <span class="doc-brand">MED ORAL</span>
+      <span class="doc-meta">05 / Atendimento & Localização</span>
+    </div>
+
+    <div>
+      <h2 class="section-title" style="color: var(--text-dark);">Seu Sorriso Merece Esse Cuidado.</h2>
+      <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6; max-width: 580px;">
+        Localizada no coração de Ubaitaba, a Med Oral oferece comodidade, discrição e acesso rápido para agendamentos na Avenida Presidente Vargas.
+      </p>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div>
+            <div class="contact-card-title">Informações Clínicas</div>
+            
+            <div class="contact-item-row">
+              <div class="contact-label">Endereço Físico</div>
+              <div class="contact-val">Avenida Presidente Vargas</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Centro — Ubaitaba, Bahia</div>
+            </div>
+
+            <div class="contact-item-row">
+              <div class="contact-label">Horários de Atendimento</div>
+              <div class="contact-val">Segunda a Sexta: 08:00 às 18:00</div>
+              <div class="contact-val">Sábados: 08:00 às 12:00</div>
+            </div>
+
+            <div class="contact-item-row">
+              <div class="contact-label">Registro Profissional</div>
+              <div class="contact-val">CRO-BA Responsável Técnica</div>
+              <div style="font-size: 10px; color: var(--text-muted);">Clínica Odontológica Regularizada</div>
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid var(--border-dark); padding-top: 12px; margin-top: 12px;">
+            <div class="contact-label">Presença Digital</div>
+            <div style="font-size: 12px; color: var(--text-dark); font-weight: 600;">@medoral.ubaitaba no Instagram</div>
+          </div>
+        </div>
+
+        <div class="contact-card">
+          <div>
+            <div class="contact-card-title">Agendamento de Avaliação</div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">
+              Tire dúvidas diretamente com a recepção da clínica e encontre o melhor horário para a sua avaliação inicial em Ubaitaba.
+            </p>
+
+            <div class="contact-item-row">
+              <div class="contact-label">Canal Oficial</div>
+              <div class="contact-val">WhatsApp de Atendimento Rápido</div>
+            </div>
+
+            <div class="contact-item-row">
+              <div class="contact-label">Modalidade de Consulta</div>
+              <div class="contact-val">Exclusivamente com hora marcada</div>
+              <div style="font-size: 10px; color: var(--text-muted);">Para seu total conforto e sem filas</div>
+            </div>
+          </div>
+
+          <a href="https://api.whatsapp.com/send/?phone=5573981096738&text=Olá!%20Recebi%20o%20Dossiê%20da%20Med%20Oral%20e%20gostaria%20de%20agendar%20uma%20avaliação%20em%20Ubaitaba." class="badge-action">
+            Conversar no WhatsApp Oficial →
+          </a>
+        </div>
+      </div>
+
+      <div style="margin-top: 24px; padding: 16px; border: 1px solid var(--border-dark); border-radius: 4px; background-color: var(--surface-dark); display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-dark);">Med Oral Odontologia Especializada</div>
+          <div style="font-size: 10px; color: var(--text-muted);">Ubaitaba — Bahia · Avenida Presidente Vargas</div>
+        </div>
+        <div style="font-size: 10px; color: var(--text-muted); font-family: monospace;">
+          DOCUMENTO OFICIAL · 2026
+        </div>
+      </div>
+    </div>
+
+    <div class="doc-footer">
+      <span>Med Oral Odontologia Especializada · Ubaitaba - BA</span>
+      <span>05</span>
+    </div>
+  </div>
+
+</body>
+</html>
