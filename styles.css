@@ -67,6 +67,7 @@ html {
   color: var(--text-primary);
   background-color: var(--color-bg-page);
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -77,6 +78,11 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Compensação de altura do header fixo para âncoras */
+[id] {
+  scroll-margin-top: 76px;
 }
 
 a {
@@ -105,8 +111,8 @@ button, input, select {
   max-width: var(--container-max);
   margin-left: auto;
   margin-right: auto;
-  padding-left: clamp(1.25rem, 4vw, 2.5rem);
-  padding-right: clamp(1.25rem, 4vw, 2.5rem);
+  padding-left: clamp(1rem, 3.5vw, 2.5rem);
+  padding-right: clamp(1rem, 3.5vw, 2.5rem);
 }
 
 .section-padding {
@@ -228,6 +234,7 @@ button, input, select {
   background-color: var(--color-primary-navy);
   border-bottom: 1px solid var(--color-border-dark);
   box-shadow: var(--shadow-header);
+  transition: height var(--transition-smooth);
 }
 
 .header-inner {
@@ -241,6 +248,7 @@ button, input, select {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  flex-shrink: 0;
 }
 
 .brand-icon-box {
@@ -252,6 +260,7 @@ button, input, select {
   align-items: center;
   justify-content: center;
   color: var(--color-accent-gold);
+  flex-shrink: 0;
 }
 
 .brand-text {
@@ -280,7 +289,165 @@ button, input, select {
   display: none;
 }
 
-@media (min-width: 960px) {
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+/* Menu Hambúrguer (Mobile) */
+.mobile-menu-btn {
+  display: none;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  padding: 10px 9px;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  transition: all var(--transition-smooth);
+}
+
+.mobile-menu-btn:hover, .mobile-menu-btn:active {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: var(--color-accent-gold);
+}
+
+.hamburger-line {
+  width: 22px;
+  height: 2px;
+  background-color: var(--color-accent-gold);
+  border-radius: 2px;
+  transition: all var(--transition-smooth);
+}
+
+/* Painel Menu Mobile Drawer */
+.mobile-nav-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(86vw, 360px);
+  background-color: var(--color-primary-navy);
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.25rem;
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.5);
+  transform: translateX(105%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-nav-drawer.is-open {
+  transform: translateX(0);
+}
+
+.mobile-nav-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(7, 21, 24, 0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1040;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-nav-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-nav-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav-close {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-on-dark);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+}
+
+.mobile-nav-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-accent-gold);
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 1.75rem 0 auto 0;
+}
+
+.mobile-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 52px;
+  padding: 0.9rem 1.15rem;
+  border-radius: var(--radius-sm);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-on-dark);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background-color: rgba(255, 255, 255, 0.03);
+  transition: all var(--transition-smooth);
+}
+
+.mobile-nav-item:active, .mobile-nav-item:hover {
+  background-color: rgba(212, 163, 115, 0.15);
+  color: var(--color-accent-gold);
+  border-color: rgba(212, 163, 115, 0.35);
+  transform: translateX(3px);
+}
+
+.mobile-nav-bottom {
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.mobile-nav-cta {
+  min-height: 48px;
+}
+
+.mobile-nav-meta {
+  font-size: 0.775rem;
+  color: var(--text-on-dark-muted);
+  line-height: 1.55;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+/* Respeito à navegação Desktop */
+@media (min-width: 1024px) {
   .header-nav {
     display: flex;
     align-items: center;
@@ -296,6 +463,62 @@ button, input, select {
 
   .nav-link:hover {
     color: var(--text-on-dark);
+  }
+
+  .btn-text-full {
+    display: inline;
+  }
+
+  .btn-text-short {
+    display: none;
+  }
+
+  .mobile-menu-btn,
+  .mobile-nav-drawer,
+  .mobile-nav-backdrop {
+    display: none !important;
+  }
+}
+
+/* Header em Mobile e Tablet (< 1024px) */
+@media (max-width: 1023px) {
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 64px;
+  }
+
+  .header-inner {
+    height: 64px;
+  }
+
+  body {
+    padding-top: 64px;
+  }
+
+  .header-nav {
+    display: none !important;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+  }
+
+  .btn-text-full {
+    display: none;
+  }
+
+  .btn-text-short {
+    display: inline;
+  }
+
+  .header-cta-btn {
+    padding: 0.55rem 0.95rem;
+    font-size: 0.8125rem;
+    min-height: 42px;
   }
 }
 
@@ -1043,36 +1266,418 @@ button, input, select {
   }
 }
 
-/* 12. FLOATING WHATSAPP BUTTON */
+/* ==========================================================================
+   12. OTIMIZAÇÕES MOBILE-FIRST (< 1024PX) & BOTÃO FLUTUANTE
+   Testadas e calibradas para 360px, 390px, 430px e tablet 768px
+   ========================================================================== */
+
+/* Seções e Espaçamentos Verticais no Mobile */
+@media (max-width: 767px) {
+  .section-padding {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .container {
+    padding-left: 1.15rem;
+    padding-right: 1.15rem;
+  }
+
+  .section-header-center {
+    margin-bottom: 2rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.85rem, 6.2vw, 2.25rem);
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+  }
+
+  .section-desc {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin-top: 0.75rem;
+  }
+}
+
+/* Hero Section no Mobile & Tablet (< 992px) */
+@media (max-width: 991px) {
+  .hero-section {
+    padding-top: 2rem;
+    padding-bottom: 2.75rem;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .hero-content {
+    order: 1;
+  }
+
+  .hero-media {
+    order: 2;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .hero-headline {
+    font-size: clamp(2rem, 7.8vw, 2.45rem);
+    line-height: 1.14;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+    text-wrap: balance;
+  }
+
+  .hero-subtitle {
+    font-size: 0.985rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    max-width: 100%;
+  }
+
+  /* Botões do Hero: largura total, empilhados, altura mín 48px */
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero-actions .btn-lumina {
+    width: 100%;
+    min-height: 48px;
+    justify-content: center;
+    font-size: 0.925rem;
+    padding: 0.85rem 1.25rem;
+  }
+
+  /* Barra de confiança: empilhada no mobile sem corte de texto */
+  .hero-trust-bar {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border-light);
+  }
+
+  .hero-trust-item {
+    gap: 0.85rem;
+  }
+
+  .hero-trust-text {
+    font-size: 0.875rem;
+  }
+
+  /* Foto do Hero com altura máxima de ~55vh e enquadramento do rosto */
+  .hero-photo-wrapper {
+    max-height: 55vh;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 16px 35px rgba(7, 21, 24, 0.1);
+  }
+
+  .hero-photo-img {
+    width: 100%;
+    max-height: 55vh;
+    height: clamp(270px, 50vh, 380px);
+    aspect-ratio: auto;
+    object-fit: cover;
+    object-position: center 20%;
+  }
+}
+
+/* Seção Tratamentos no Mobile */
+@media (max-width: 639px) {
+  .treatments-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .treatment-card {
+    padding: 1.5rem 1.25rem;
+    border-radius: var(--radius-md);
+  }
+
+  .treatment-title {
+    font-size: 1.2rem;
+  }
+
+  .treatment-desc {
+    font-size: 0.875rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .treatment-image-box {
+    aspect-ratio: 16 / 10;
+    height: 180px;
+    width: 100%;
+  }
+
+  .treatment-image-box img {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+/* Seção A Clínica no Mobile */
+@media (max-width: 839px) {
+  .clinic-dual-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .clinic-card-media {
+    height: clamp(210px, 52vw, 260px);
+  }
+
+  .clinic-card-content {
+    padding: 1.35rem 1.25rem 1.5rem 1.25rem;
+  }
+
+  .clinic-card-title {
+    font-size: 1.1rem;
+  }
+}
+
+/* Seção Especialistas no Mobile: Foto da Dra. ANTES do texto */
+@media (max-width: 991px) {
+  .specialists-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .specialists-col-photo {
+    order: -1; /* Posiciona foto da Dra. Danielle antes do texto no mobile */
+    margin-bottom: 0.5rem;
+  }
+
+  .specialist-portrait-img {
+    height: clamp(280px, 50vh, 380px);
+    aspect-ratio: auto;
+    object-fit: cover;
+    object-position: center 12%;
+  }
+
+  .specialist-floating-badge {
+    padding: 0.75rem 0.95rem;
+    bottom: 0.85rem;
+    left: 0.85rem;
+    right: 0.85rem;
+    gap: 0.75rem;
+  }
+
+  .specialist-floating-avatar {
+    width: 38px;
+    height: 38px;
+  }
+
+  .specialist-floating-name {
+    font-size: 0.95rem;
+  }
+
+  .specialist-floating-role {
+    font-size: 0.7rem;
+  }
+
+  .specialists-badges-row {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    margin-top: 1.75rem;
+    padding-top: 1.5rem;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 991px) {
+  .specialists-badges-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Formulário de Agendamento no Mobile */
+@media (max-width: 991px) {
+  .booking-grid {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+
+  .booking-form-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .booking-benefits-list {
+    margin-top: 1.5rem;
+    gap: 1rem;
+  }
+}
+
+.form-input, .form-select {
+  min-height: 48px;
+  font-size: 16px !important; /* Obrigatório para evitar zoom involuntário no iOS Safari */
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-lumina--full {
+  min-height: 50px;
+  font-size: 0.95rem;
+}
+
+/* Rodapé no Mobile */
+@media (max-width: 639px) {
+  .site-footer {
+    padding-top: 3rem;
+    padding-bottom: max(5.5rem, calc(env(safe-area-inset-bottom, 1rem) + 4.5rem));
+  }
+
+  .footer-main-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .footer-social-icon {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .footer-nav-link {
+    display: inline-block;
+    padding: 0.35rem 0;
+    min-height: 38px;
+  }
+}
+
+/* Botão Flutuante do WhatsApp (Mínimo 52px Touch Target e Safe Area) */
 .floating-whatsapp {
   position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  z-index: 99;
+  bottom: max(1.25rem, env(safe-area-inset-bottom, 1.25rem));
+  right: 1.25rem;
+  left: auto;
+  z-index: 998;
   background-color: var(--color-whatsapp);
   color: #FFFFFF;
-  padding: 0.85rem 1.4rem;
+  padding: 0 1.35rem;
+  height: 52px;
+  min-height: 52px;
+  min-width: 52px;
   border-radius: var(--radius-full);
-  font-size: 0.8125rem;
+  font-size: 0.85rem;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.65rem;
-  box-shadow: 0 10px 25px rgba(11, 110, 79, 0.4);
+  box-shadow: 0 8px 24px rgba(11, 110, 79, 0.45);
   transition: transform var(--transition-smooth), background-color var(--transition-smooth);
 }
 
 .floating-whatsapp:hover {
   background-color: var(--color-whatsapp-hover);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .floating-whatsapp {
-    left: 1rem;
+    bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
     right: 1rem;
-    bottom: 1rem;
-    justify-content: center;
-    padding: 1rem;
+    left: auto;
+  }
+}
+
+@media (max-width: 380px) {
+  .floating-whatsapp span {
+    display: none;
+  }
+  .floating-whatsapp {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    min-height: 52px;
+    padding: 0;
+    right: 1rem;
+    bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
+  }
+}
+
+/* Ajustes de Header & Layout para Telas Médias e Pequenas (< 560px) */
+@media (max-width: 560px) {
+  .brand-sub {
+    display: none;
+  }
+
+  .brand-title {
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+  }
+
+  .brand-icon-box {
+    width: 32px;
+    height: 32px;
+  }
+
+  .brand-link {
+    gap: 0.5rem;
+  }
+
+  .header-actions {
+    gap: 0.5rem;
+  }
+
+  .header-cta-btn {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.8rem;
+    min-height: 40px;
+  }
+
+  .mobile-menu-btn {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 8px 7px;
+  }
+}
+
+/* Ajustes Específicos para Telas Estreitas (360px - 380px) */
+@media (max-width: 380px) {
+  .container {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+  }
+
+  .brand-title {
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .header-actions {
+    gap: 0.35rem;
+  }
+
+  .header-cta-btn {
+    padding: 0.4rem 0.65rem;
+    font-size: 0.75rem;
+    min-height: 38px;
+  }
+
+  .hero-headline {
+    font-size: 1.85rem;
+  }
+
+  .hero-actions .btn-lumina {
+    white-space: normal;
+    text-align: center;
+  }
+
+  .booking-form-card {
+    padding: 1.25rem 0.95rem;
+  }
+
+  .treatment-card {
+    padding: 1.25rem 0.95rem;
   }
 }

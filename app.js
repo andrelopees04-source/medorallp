@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Med Oral Odontologia Especializada - Ubaitaba (BA)
  * Script de Interatividade & Conversão WhatsApp no Padrão Lumina
  * Skill CodeMakers-Design
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 4. Smooth Scroll para navegação interna
+  // 4. Smooth Scroll para navegação interna com compensação de header fixo
   const navLinks = document.querySelectorAll('a[href^="#"]');
   navLinks.forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -64,11 +64,73 @@ document.addEventListener('DOMContentLoaded', () => {
       const targetElement = document.querySelector(targetId);
       if (targetElement) {
         e.preventDefault();
-        targetElement.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
+        const headerOffset = window.innerWidth < 1024 ? 72 : 90;
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
         });
       }
     });
+  });
+
+  // 5. Menu Mobile Drawer
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
+  const mobileNavDrawer = document.getElementById('mobile-nav-drawer');
+  const mobileNavBackdrop = document.getElementById('mobile-nav-backdrop');
+
+  function openMobileMenu() {
+    if (!mobileNavDrawer) return;
+    mobileNavDrawer.classList.add('is-open');
+    if (mobileNavBackdrop) mobileNavBackdrop.classList.add('is-open');
+    mobileNavDrawer.setAttribute('aria-hidden', 'false');
+    if (mobileMenuToggle) mobileMenuToggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileMenu() {
+    if (!mobileNavDrawer) return;
+    mobileNavDrawer.classList.remove('is-open');
+    if (mobileNavBackdrop) mobileNavBackdrop.classList.remove('is-open');
+    mobileNavDrawer.setAttribute('aria-hidden', 'true');
+    if (mobileMenuToggle) mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = mobileNavDrawer && mobileNavDrawer.classList.contains('is-open');
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
+    });
+  }
+
+  if (mobileMenuClose) {
+    mobileMenuClose.addEventListener('click', closeMobileMenu);
+  }
+
+  if (mobileNavBackdrop) {
+    mobileNavBackdrop.addEventListener('click', closeMobileMenu);
+  }
+
+  // Fechar menu ao tocar em qualquer link dentro do drawer
+  const mobileDrawerLinks = document.querySelectorAll('#mobile-nav-drawer a');
+  mobileDrawerLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      closeMobileMenu();
+    });
+  });
+
+  // Fechar com tecla ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileNavDrawer && mobileNavDrawer.classList.contains('is-open')) {
+      closeMobileMenu();
+    }
   });
 });
